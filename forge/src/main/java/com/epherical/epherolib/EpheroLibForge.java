@@ -1,5 +1,8 @@
 package com.epherical.epherolib;
 
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -18,7 +21,7 @@ public class EpheroLibForge {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientInit);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
 
-        //MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void clientInit(FMLClientSetupEvent event) {
@@ -27,6 +30,11 @@ public class EpheroLibForge {
     }
 
     private void commonInit(FMLCommonSetupEvent event) {
+
+    }
+
+    @SubscribeEvent
+    private void onCommandRegister(RegisterCommandsEvent event) {
 
     }
 
