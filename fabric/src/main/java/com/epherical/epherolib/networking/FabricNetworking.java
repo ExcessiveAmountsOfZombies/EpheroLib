@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayChannelHandler;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class FabricNetworking extends AbstractNetworking<ClientPlayNetworking.PlayChannelHandler, PlayChannelHandler> {
+public class FabricNetworking extends AbstractNetworking<ClientPlayNetworking.PlayPayloadHandler<?>, ClientPlayNetworking.Context> {
     private boolean client;
     private ResourceLocation modChannel;
 
@@ -30,9 +29,10 @@ public class FabricNetworking extends AbstractNetworking<ClientPlayNetworking.Pl
     }
 
     private <T> void registerDecode() {
-        if (client) {
+        /*if (client) {
+            ClientPlayNetworking.registerGlobalReceiver()
             ClientPlayNetworking.registerGlobalReceiver(modChannel, (client1, handler, buf, responseSender) -> {
-                PacketWrapper<T, ClientPlayNetworking.PlayChannelHandler> packetWrapper = (PacketWrapper<T, ClientPlayNetworking.PlayChannelHandler>) indices.get(buf.readVarInt());
+                PacketWrapper<T, ClientPlayNetworking.PlayPayloadHandler<?>> packetWrapper = (PacketWrapper<T, ClientPlayNetworking.PlayPayloadHandler<?>>) indices.get(buf);
                 T apply = packetWrapper.decoder.apply(buf);
                 packetWrapper.consumer.accept(apply, new Context<>(Side.CLIENT, null));
             });
@@ -41,17 +41,16 @@ public class FabricNetworking extends AbstractNetworking<ClientPlayNetworking.Pl
             PacketWrapper<T, PlayChannelHandler> packetWrapper = (PacketWrapper<T, PlayChannelHandler>) indices.get(buf.readVarInt());
             T apply = packetWrapper.decoder.apply(buf);
             packetWrapper.consumer.accept(apply, new Context<>(Side.SERVER, player));
-        });
+        });*/
     }
 
     @Override
-    public <T> void registerServerToClient(int id, Class<T> type, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder,
-                                           BiConsumer<T, Context<ClientPlayNetworking.PlayChannelHandler>> consumer) {
+    public <T> void registerServerToClient(int id, Class<T> type, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Context<ClientPlayNetworking.PlayPayloadHandler<?>>> consumer) {
         classToResponseMap.put(type, new PacketWrapper<>(id, encoder, decoder, consumer));
     }
 
     @Override
-    public <T> void registerClientToServer(int id, Class<T> type, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Context<PlayChannelHandler>> consumer) {
+    public <T> void registerClientToServer(int id, Class<T> type, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Context<ClientPlayNetworking.Context>> consumer) {
         classToResponseMap.put(type, new PacketWrapper<>(id, encoder, decoder, consumer));
     }
 
@@ -59,14 +58,14 @@ public class FabricNetworking extends AbstractNetworking<ClientPlayNetworking.Pl
     public <T> void sendToClient(T type, ServerPlayer serverPlayer) {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         assemblePacket(type, buf);
-        ServerPlayNetworking.send(serverPlayer, modChannel, buf);
+       // ServerPlayNetworking.send(serverPlayer, modChannel, buf);
     }
 
     @Override
     public <T> void sendToServer(T type, Connection connection) {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         assemblePacket(type, buf);
-        ClientPlayNetworking.send(modChannel, buf);
+        //ClientPlayNetworking.send(modChannel, buf);
     }
 
     private <T> void assemblePacket(T type, FriendlyByteBuf buf) {
