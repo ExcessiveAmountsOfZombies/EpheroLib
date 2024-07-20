@@ -1,12 +1,11 @@
 package com.epherical.epherolib;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 @Mod(ModConstants.MOD_ID)
 public class EpheroLibForge {
@@ -18,10 +17,10 @@ public class EpheroLibForge {
         mod = this;
         CommonPlatform.create(new ForgePlatform());
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientInit);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
+        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientInit);
+        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
 
-        MinecraftForge.EVENT_BUS.register(this);
+        //MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void clientInit(FMLClientSetupEvent event) {

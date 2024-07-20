@@ -14,15 +14,15 @@ import org.jetbrains.annotations.Nullable;
 public class SmallIconButton extends Button {
 
     private static final WidgetSprites BUTTONS = new WidgetSprites(
-            new ResourceLocation("epherolib", "widgets/small_button"),
-            new ResourceLocation("epherolib", "widgets/small_button_highlighted"));
+            ResourceLocation.fromNamespaceAndPath("epherolib", "widgets/small_button"),
+            ResourceLocation.fromNamespaceAndPath("epherolib", "widgets/small_button_highlighted"));
 
     private static final WidgetSprites ARROWS = new WidgetSprites(
-            new ResourceLocation("epherolib", "widgets/arrow_down"),
-            new ResourceLocation("epherolib", "widgets/arrow_up"));
+            ResourceLocation.fromNamespaceAndPath("epherolib", "widgets/arrow_down"),
+            ResourceLocation.fromNamespaceAndPath("epherolib", "widgets/arrow_up"));
 
 
-    public static final ResourceLocation ELEMENTS = new ResourceLocation("epherolib", "textures/gui/elements.png");
+    public static final ResourceLocation ELEMENTS = ResourceLocation.fromNamespaceAndPath("epherolib", "textures/gui/elements.png");
 
 
     public boolean opened = false;
