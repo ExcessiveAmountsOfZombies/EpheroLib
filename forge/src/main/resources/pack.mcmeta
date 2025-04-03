@@ -1,6 +1,7 @@
 {
   "pack": {
-    "description": "bozoiD Resources",
-    "pack_format": 9
+    "description": "epherolib resources",
+    "pack_format": 48,
+    "forge:server_data_pack_format": 12
   }
 }

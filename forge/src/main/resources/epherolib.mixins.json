@@ -1,8 +1,14 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "com.epherical.epherolib.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "refmap": "EpheroLib-refmap.json",
-  "mixins": [],
-  "minVersion": "0.8"
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "epherolib.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
