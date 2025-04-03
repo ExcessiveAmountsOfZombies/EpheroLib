@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -36,17 +37,15 @@ public class SmallIconButton extends Button {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.setColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
         int offset = this.getTextureY();
-        graphics.blitSprite(BUTTONS.get(this.active, this.isHoveredOrFocused()), this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        graphics.blitSprite(RenderType::guiTextured, BUTTONS.get(this.active, this.isHoveredOrFocused()), this.getX(), this.getY(), this.getWidth(), this.getHeight());
         if (icon == Icon.INCREMENT) {
-            graphics.blitSprite(ARROWS.disabled(), this.getX(), this.getY(), 5, 5);
+            graphics.blitSprite(RenderType::guiTextured, ARROWS.disabled(), this.getX(), this.getY(), 5, 5);
         } else {
-            graphics.blitSprite(ARROWS.enabled(), this.getX(), this.getY(), 5, 5);
+            graphics.blitSprite(RenderType::guiTextured, ARROWS.enabled(), this.getX(), this.getY(), 5, 5);
         }
-        graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private int getTextureY() {

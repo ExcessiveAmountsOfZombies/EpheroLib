@@ -20,7 +20,6 @@ apply plugin: 'org.spongepowered.mixin'
 
 version = project.modVersion
 group = project.mavenGroup
-archivesBaseName = modBaseArchiveName + "-" + minecraftVersion + "-FORGE"
 
 configurations {
     shade
@@ -29,7 +28,7 @@ configurations {
 }
 
 base {
-    archivesName = mod_id
+    archivesName =  modBaseArchiveName + "-" + minecraftVersion + "-FORGE"
 }
 
 java {

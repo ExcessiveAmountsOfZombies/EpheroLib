@@ -20,7 +20,7 @@ plugins {
 
 rootProject.name = 'EpheroLib'
 
-include 'forge'
+//include 'forge'
 include 'neoforge'
 include 'fabric'
 

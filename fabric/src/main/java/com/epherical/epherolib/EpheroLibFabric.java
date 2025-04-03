@@ -9,8 +9,6 @@ public class EpheroLibFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         CommonPlatform.create(new FabricPlatform());
-
-
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 
         });
