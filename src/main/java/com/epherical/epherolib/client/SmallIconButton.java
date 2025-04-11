@@ -37,8 +37,6 @@ public class SmallIconButton extends Button {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
         int offset = this.getTextureY();
         graphics.blitSprite(RenderType::guiTextured, BUTTONS.get(this.active, this.isHoveredOrFocused()), this.getX(), this.getY(), this.getWidth(), this.getHeight());
         if (icon == Icon.INCREMENT) {
